@@ -68,6 +68,11 @@
     <!-- Set base frame z-axis rotation here -->
     <xacro:property name="base_z_rotation" value="0" />
 
+    <!-- Lego assembly constants -->
+    <xacro:property name="lego_long_side" value="0.032" />
+    <xacro:property name="lego_short_side" value="0.016" />
+    <xacro:property name="lego_height" value="0.0096" />
+
     <!-- Load configuration data from the provided .yaml files -->
     <xacro:read_model_data
       joint_limits_parameters_file="${joint_limits_parameters_file}" 
@@ -334,6 +339,71 @@
       <origin xyz="0 0 0" rpy="${pi/2.0} 0 ${pi/2.0}"/>
       <parent link="${prefix}flange"/>
       <child link="${prefix}tool0"/>
+    </joint>
+
+    <!-- Lego base tool -->
+    <link name="${prefix}lego_tool"/>
+    <joint name="${prefix}tool0-lego_tool" type="fixed">
+      <origin xyz="0 0 0.08005" rpy="0 0 0.7854"/>
+      <parent link="${prefix}tool0"/>
+      <child link="${prefix}lego_tool"/>
+    </joint>
+
+    <!-- Tool Offsets for Lego Handling -->
+    <link name="${prefix}back_pivot_place_offset"/>
+    <joint name="${prefix}lego_tool-back_pivot_place_offset" type="fixed">
+      <origin xyz="0 -${lego_short_side/2} 0" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}back_pivot_place_offset"/>
+    </joint>
+
+    <link name="${prefix}front_pivot_place_offset"/>
+    <joint name="${prefix}lego_tool-front_pivot_place_offset" type="fixed">
+      <origin xyz="0 -${lego_short_side/2} 0" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}front_pivot_place_offset"/>
+    </joint>
+
+    <link name="${prefix}left_pivot_place_offset"/>
+    <joint name="${prefix}lego_tool-left_pivot_place_offset" type="fixed">
+      <origin xyz="${lego_long_side/2} 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}left_pivot_place_offset"/>
+    </joint>
+
+    <link name="${prefix}right_pivot_place_offset"/>
+    <joint name="${prefix}lego_tool-right_pivot_place_offset" type="fixed">
+      <origin xyz="-${lego_long_side/2} 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}right_pivot_place_offset"/>
+    </joint>
+
+    <link name="${prefix}back_pivot_pick_offset"/>
+    <joint name="${prefix}lego_tool-back_pivot_pick_offset" type="fixed">
+      <origin xyz="0 -${lego_short_side/2} ${lego_height}" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}back_pivot_pick_offset"/>
+    </joint>
+
+    <link name="${prefix}front_pivot_pick_offset"/>
+    <joint name="${prefix}lego_tool-front_pivot_pick_offset" type="fixed">
+      <origin xyz="0 -${lego_short_side/2} ${lego_height}" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}front_pivot_pick_offset"/>
+    </joint>
+
+    <link name="${prefix}left_pivot_pick_offset"/>
+    <joint name="${prefix}lego_tool-left_pivot_pick_offset" type="fixed">
+      <origin xyz="${lego_long_side/2} 0 ${lego_height}" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}left_pivot_pick_offset"/>
+    </joint>
+
+    <link name="${prefix}right_pivot_pick_offset"/>
+    <joint name="${prefix}lego_tool-right_pivot_pick_offset" type="fixed">
+      <origin xyz="-${lego_long_side/2} 0 ${lego_height}" rpy="0 0 0"/>
+      <parent link="${prefix}lego_tool"/>
+      <child link="${prefix}right_pivot_pick_offset"/>
     </joint>
   </xacro:macro>
 </robot>
