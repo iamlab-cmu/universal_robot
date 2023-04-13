@@ -69,9 +69,9 @@
     <xacro:property name="base_z_rotation" value="0" />
 
     <!-- Lego assembly constants -->
-    <xacro:property name="lego_long_side" value="0.032" />
-    <xacro:property name="lego_short_side" value="0.016" />
-    <xacro:property name="lego_height" value="0.0096" />
+    <xacro:property name="lego_long_side" value="0.0317" />
+    <xacro:property name="lego_short_side" value="0.0158" />
+    <xacro:property name="lego_height" value="0.0095" />
 
     <!-- Load configuration data from the provided .yaml files -->
     <xacro:read_model_data
